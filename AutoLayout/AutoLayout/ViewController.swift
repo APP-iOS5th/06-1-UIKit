@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate([
             containerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             containerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            containerView.widthAnchor.constraint(equalToConstant: 200),
+            containerView.widthAnchor.constraint(equalToConstant: 300),
             containerView.heightAnchor.constraint(equalToConstant: 200)
         ])
         
@@ -36,13 +36,13 @@ class ViewController: UIViewController {
         
         NSLayoutConstraint.activate([
             subview1.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            subview1.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 20),
-            subview1.widthAnchor.constraint(equalToConstant: 50),
+            subview1.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 0),
+            subview1.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.66),
             subview1.heightAnchor.constraint(equalToConstant: 50),
 
             subview2.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -20),
-            subview2.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -20),
-            subview2.widthAnchor.constraint(equalToConstant: 50),
+            subview2.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: 0),
+            subview2.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: 0.33),
             subview2.heightAnchor.constraint(equalToConstant: 50)
         ])
         
