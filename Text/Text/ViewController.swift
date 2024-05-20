@@ -13,20 +13,24 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let label = UILabel()
-        label.text = "This is a long text that should wrap into multiple lines if it exceeds the width of the label."
-        label.textColor = .black
-        label.textAlignment = .left
-        label.font = UIFont.systemFont(ofSize: 17)
-        label.numberOfLines = 0
-        label.lineBreakMode = .byWordWrapping
+        label.text = "Stylized Text"
+        label.font = UIFont.boldSystemFont(ofSize: 17)
+        label.textColor = .yellow
+        label.backgroundColor = .red
+        label.textAlignment = .center
+        
+        label.layer.cornerRadius = 10
+        label.clipsToBounds = true
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(label)
         
         NSLayoutConstraint.activate([
-            label.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            label.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 100)
+            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+            label.widthAnchor.constraint(equalToConstant: 200),
+            label.heightAnchor.constraint(equalToConstant: 40)
         ])
     }
 
