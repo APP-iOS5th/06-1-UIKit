@@ -17,12 +17,12 @@ class ViewController: UIViewController {
         label.text = "Switch is OFF"
         label.textAlignment = .center
         
-        toggleSwitch.addAction(UIAction { [weak self] _ in
+        toggleSwitch.addAction(UIAction { [unowned self] _ in
             print("valueChanged")
-            if let isOn = self?.toggleSwitch.isOn, isOn {
-                self?.label.text = "Switch is ON"
+            if self.toggleSwitch.isOn {
+                self.label.text = "Switch is ON"
             } else {
-                self?.label.text = "Switch is OFF"
+                self.label.text = "Switch is OFF"
             }
             
         }, for: .valueChanged)
