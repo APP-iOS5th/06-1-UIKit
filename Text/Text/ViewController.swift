@@ -12,6 +12,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let paddingView = UIView()
+        paddingView.translatesAutoresizingMaskIntoConstraints = false
+        paddingView.backgroundColor = .blue
+        
         let label = UILabel()
         label.text = "Stylized Text"
         label.font = UIFont.boldSystemFont(ofSize: 17)
@@ -24,13 +28,20 @@ class ViewController: UIViewController {
         
         label.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(label)
+        
+        paddingView.addSubview(label)
+        view.addSubview(paddingView)
         
         NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
-            label.widthAnchor.constraint(equalToConstant: 200),
-            label.heightAnchor.constraint(equalToConstant: 40)
+            label.topAnchor.constraint(equalTo: paddingView.topAnchor, constant: 20),
+            label.bottomAnchor.constraint(equalTo: paddingView.bottomAnchor, constant: -20),
+            label.leadingAnchor.constraint(equalTo: paddingView.leadingAnchor, constant: 20),
+            label.trailingAnchor.constraint(equalTo: paddingView.trailingAnchor, constant: -20),
+            
+            paddingView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            paddingView.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
+            paddingView.widthAnchor.constraint(equalToConstant: 200),
+            paddingView.heightAnchor.constraint(equalToConstant: 100)
         ])
     }
 
