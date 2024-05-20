@@ -12,6 +12,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // self 를 쓰는 이유: 지역변수와 멤버변수의 구분을 위해. 같은 이름의 지역변수가 없다면 생략가능
+        let view = UIView()
+        self.view.addSubview(view)
+        
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 10
