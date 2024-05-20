@@ -17,7 +17,15 @@ class ViewController: UIViewController {
         label.text = "Switch is OFF"
         label.textAlignment = .center
         
-        toggleSwitch.addTarget(self, action: #selector(switchChanged), for: .valueChanged)
+        toggleSwitch.addAction(UIAction { [weak self] _ in
+            print("valueChanged")
+            if let isOn = self?.toggleSwitch.isOn, isOn {
+                self?.label.text = "Switch is ON"
+            } else {
+                self?.label.text = "Switch is OFF"
+            }
+            
+        }, for: .valueChanged)
         
         let stackView = UIStackView(arrangedSubviews: [label, toggleSwitch])
         stackView.axis = .vertical
@@ -33,14 +41,6 @@ class ViewController: UIViewController {
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
         
-    }
-
-    @objc func switchChanged(_ sender: UISwitch) {
-        if sender.isOn {
-            label.text = "Switch is ON"
-        } else {
-            label.text = "Switch is OFF"
-        }
     }
 }
 
