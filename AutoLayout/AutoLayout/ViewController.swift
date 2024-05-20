@@ -14,13 +14,17 @@ class ViewController: UIViewController {
         
         let label = UILabel()
         label.text = "Hello, Auto Layout"
-        label.translatesAutoresizingMaskIntoConstraints = true
+        label.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(label)
         
-        NSLayoutConstraint.activate([
-            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        ])
+//        NSLayoutConstraint.activate([
+//            label.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            label.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+//        ])
+            
+        label.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = false
+        label.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = false
+        label.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         
     }
 
