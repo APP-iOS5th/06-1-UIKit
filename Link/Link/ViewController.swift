@@ -16,6 +16,15 @@ class ViewController: UIViewController {
         webView.isHidden = true
         return webView
     }()
+    
+    private lazy var closeButton: UIButton = {
+        let button = UIButton(type: .close)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.addAction(UIAction { [weak self] _ in
+            self?.webView.isHidden = true
+        }, for: .touchUpInside)
+        return button
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,15 +40,16 @@ class ViewController: UIViewController {
         linkButton.addAction(UIAction { [weak self] _ in
             if let url = URL(string:"https://www.apple.com") {
 //                UIApplication.shared.open(url)
-                let safariViewController = SFSafariViewController(url: url)
-                // 다양한 형태의 모달 뷰로 띄울 수 있다.
-                safariViewController.modalPresentationStyle = .pageSheet
-                self?.present(safariViewController, animated: true)
-//                self?.openInWebView(url: url)
+//                let safariViewController = SFSafariViewController(url: url)
+//                // 다양한 형태의 모달 뷰로 띄울 수 있다.
+//                safariViewController.modalPresentationStyle = .pageSheet
+//                self?.present(safariViewController, animated: true)
+                self?.openInWebView(url: url)
             }
         }, for: .touchUpInside)
         
         view.addSubview(linkButton)
+        webView.addSubview(closeButton)
         view.addSubview(webView)
 
         NSLayoutConstraint.activate([
@@ -47,8 +57,10 @@ class ViewController: UIViewController {
             linkButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             webView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             webView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            webView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30),
+            webView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            closeButton.topAnchor.constraint(equalTo: webView.topAnchor, constant: -30),
+            closeButton.trailingAnchor.constraint(equalTo: webView.trailingAnchor, constant: -10)
         ])
     }
 
