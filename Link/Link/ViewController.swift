@@ -52,8 +52,8 @@ class ViewController: UIViewController {
     
     func showSubmenu(sourceView: UIView) {
         let submenuAlert = UIAlertController(title: "Submenu", message: nil, preferredStyle: .actionSheet)
-        submenuAlert.addAction(UIAlertAction(title: "Copy Format", style: .default, handler: { [weak self] _ in self.showMessage("Copy format chosen") }))
-        submenuAlert.addAction(UIAlertAction(title: "Paste Format", style: .default, handler: { [weak self] _ in self.showMessage("Paste format chosen") }))
+        submenuAlert.addAction(UIAlertAction(title: "Copy Format", style: .default, handler: { [weak self] _ in self?.showMessage("Copy format chosen") }))
+        submenuAlert.addAction(UIAlertAction(title: "Paste Format", style: .default, handler: { [weak self] _ in self?.showMessage("Paste format chosen") }))
         submenuAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         // 아이패드에서 팝오버 형태로 서브메뉴 표시
