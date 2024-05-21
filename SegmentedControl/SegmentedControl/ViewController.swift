@@ -47,10 +47,8 @@ class ViewController: UIViewController {
             self?.segmentedControl.setTitleTextAttributes(nornalTextAttribute, for: .normal)
         }, for: .valueChanged)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        segmentedControl.selectedSegmentTintColor = .red
+        segmentedControl.selectedSegmentTintColor = .lightGray
         
-        
-
         view.addSubview(segmentedControl)
         NSLayoutConstraint.activate([
             segmentedControl.centerXAnchor.constraint(equalTo: view.centerXAnchor),
