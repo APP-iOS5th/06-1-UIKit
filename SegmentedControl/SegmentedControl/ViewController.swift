@@ -23,9 +23,8 @@ class ViewController: UIViewController {
         config.title = "Click me"
         config.baseBackgroundColor = .systemBlue
         config.baseForegroundColor = .white
-        config.cornerStyle = .capsule
+//        config.cornerStyle = .small
 
-        
         config.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 20, bottom: 10, trailing: 20)
         button.configuration = config
         
@@ -36,12 +35,21 @@ class ViewController: UIViewController {
         }, for: .touchUpInside)
         
         button.translatesAutoresizingMaskIntoConstraints = false
-        
+                
         view.addSubview(button)
+        
+        let button2 = UIButton(type: .custom)
+        config.baseBackgroundColor = .systemRed
+        config.cornerStyle = .medium
+        button2.configuration = config
+        button2.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(button2)
         
         NSLayoutConstraint.activate([
             button.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            button.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+            button.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            button2.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            button2.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 10)
         ])
     }
 
