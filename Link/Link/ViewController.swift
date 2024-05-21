@@ -22,19 +22,19 @@ class ViewController: UIViewController {
         menuButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(menuButton)
         NSLayoutConstraint.activate([
-            menuButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             menuButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            menuButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 10)
         ])
         
     }
 
     func showMenu(sourceView: UIView) {
         let alert = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
-        alert.addAction(UIAlertAction(title: "Open", style: .default) { _ in
-            self.showMessage("Open chosen")
+        alert.addAction(UIAlertAction(title: "Open", style: .default) { [weak self] _ in
+            self?.showMessage("Open chosen")
         })
-        alert.addAction(UIAlertAction(title: "Find", style: .default, handler: { _ in self.showMessage("Find chosen") }))
-        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in self.showMessage("Delete chosen") }))
+        alert.addAction(UIAlertAction(title: "Find", style: .default, handler: { [weak self] _ in self?.showMessage("Find chosen") }))
+        alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { [weak self] _ in self?.showMessage("Delete chosen") }))
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Submenu", style: .default, handler: { [weak self] _ in
             self?.showSubmenu(sourceView: sourceView)
@@ -52,8 +52,8 @@ class ViewController: UIViewController {
     
     func showSubmenu(sourceView: UIView) {
         let submenuAlert = UIAlertController(title: "Submenu", message: nil, preferredStyle: .actionSheet)
-        submenuAlert.addAction(UIAlertAction(title: "Copy Format", style: .default, handler: { _ in self.showMessage("Copy format chosen") }))
-        submenuAlert.addAction(UIAlertAction(title: "Paste Format", style: .default, handler: { _ in self.showMessage("Paste format chosen") }))
+        submenuAlert.addAction(UIAlertAction(title: "Copy Format", style: .default, handler: { [weak self] _ in self.showMessage("Copy format chosen") }))
+        submenuAlert.addAction(UIAlertAction(title: "Paste Format", style: .default, handler: { [weak self] _ in self.showMessage("Paste format chosen") }))
         submenuAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         // 아이패드에서 팝오버 형태로 서브메뉴 표시
