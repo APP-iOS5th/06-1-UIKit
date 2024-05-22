@@ -16,8 +16,8 @@ class ViewController: UIViewController, UITableViewDataSource {
         
         let tableView = UITableView(frame: view.bounds)
         tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
-        
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
