@@ -23,7 +23,17 @@ class ViewController: UIViewController {
         setupFormTwo()
         setupResults()
         
+//        formOneTextField.addAction(UIAction { [weak self] _ in
+//            self?.resultLabelOne.text = "폼 #1 = \(self?.formOneTextField.text ?? "")"
+//        }, for: .editingChanged)
+//        
+//        formTwoTextField.addAction(UIAction { [weak self] _ in
+//            self?.resultLabelTwo.text = "폼 #2 = \(self?.formTwoTextField.text ?? "")"
+//        }, for: .editingChanged)
         
+        formOneTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        formTwoTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+
     }
     
     func setupFormOne() {
@@ -43,7 +53,6 @@ class ViewController: UIViewController {
             formOneTextField.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             formOneTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
-
     }
     
     func setupFormTwo() {
@@ -79,6 +88,13 @@ class ViewController: UIViewController {
             resultLabelTwo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20)
         ])
     }
-
+    
+    @objc func textFieldDidChange(_ textField: UITextField) {
+        if textField == formOneTextField {
+            resultLabelOne.text = "폼 #1 = \(textField.text ?? "")"
+        } else {
+            resultLabelTwo.text = "폼 #2 = \(textField.text ?? "")"
+        }
+    }
 }
 
