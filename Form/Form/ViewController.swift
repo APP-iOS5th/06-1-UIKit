@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     let formTwoTextField = UITextField()
     let resultLabelOne = UILabel()
     let resultLabelTwo = UILabel()
+    lazy var textFieldAction = UIAction(handler: textFieldDidChange)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,10 +34,19 @@ class ViewController: UIViewController {
         
 //        formOneTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
 //        formTwoTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
-        
-        formOneTextField.addAction(UIAction(handler: textFieldDidChange), for: .editingChanged)
-        formTwoTextField.addAction(UIAction(handler: textFieldDidChange), for: .editingChanged)
-
+    }
+    
+    // 액션 개체 생성 / 삭제 코드 추가
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        formOneTextField.addAction(textFieldAction, for: .editingChanged)
+        formTwoTextField.addAction(textFieldAction, for: .editingChanged)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        formOneTextField.removeAction(textFieldAction, for: .editingChanged)
+        formTwoTextField.removeAction(textFieldAction, for: .editingChanged)
     }
     
     func setupFormOne() {
