@@ -9,7 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
     let textField = UITextField()
-    
+    lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,12 +27,11 @@ class ViewController: UIViewController {
             textField.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: 100),
         ])
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHandler))
-        view.addGestureRecognizer(tapGesture)
     }
     
     override func viewIsAppearing(_ animated: Bool) {
         super.viewIsAppearing(animated)
+        view.addGestureRecognizer(tapGesture)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow),
                                                name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide),
@@ -40,6 +40,7 @@ class ViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        view.removeGestureRecognizer(tapGesture)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
