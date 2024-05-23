@@ -15,10 +15,12 @@ class ViewController: UIViewController {
 //        self.navigationItem.title = "네비게이션 타이틀"
         self.title = "네비게이션 타이틀"
         
-        self.navigationController?.navigationBar.barStyle = .default
-        self.navigationController?.navigationBar.isTranslucent = true
-        self.navigationController?.navigationBar.backgroundColor = .systemBrown
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        view.backgroundColor = .white
+        
+        let appearence = UINavigationBarAppearance()
+        appearence.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
+        appearence.backgroundColor = .systemBrown
+        self.navigationController?.navigationBar.scrollEdgeAppearance = appearence
         
         let leftButton = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(leftButtonTapped))
         self.navigationItem.leftBarButtonItem = leftButton
