@@ -7,7 +7,51 @@
 
 import UIKit
 
+let TODAY_BUTTON_TAG = 1001
+let TOMORROW_BUTTON_TAG = 1002
+let NODUE_BUTTON_TAG = 1003
+let DATEPICKER_TAG = 1004
+
+enum DueDateType {
+    case today
+    case tomorrow
+    case none
+    case someday(date: Date)
+    
+    func getDate() -> Date? {
+        switch self {
+        case .today:
+            return Date()
+        case .tomorrow:
+            return Calendar.current.date(byAdding: .day, value: 1, to: Date())
+        case .none:
+            return nil
+        case .someday(let date):
+            return date
+        }
+    }
+    
+    func isSelected(tag: Int) -> Bool {
+        switch self {
+        case .today:
+            return tag == TODAY_BUTTON_TAG
+        case .tomorrow:
+            return tag == TOMORROW_BUTTON_TAG
+        case .none:
+            return tag == NODUE_BUTTON_TAG
+        case .someday(let date):
+            return tag == DATEPICKER_TAG
+        }
+    }
+}
+
 class AddTaskViewController: UIViewController {
+    var dueDate: DueDateType = .none {
+        didSet {
+            updateDueButtons()
+        }
+    }
+        
     private var taskTextField: UITextField = {
         let textField = UITextField()
         textField.borderStyle = .roundedRect
@@ -17,10 +61,19 @@ class AddTaskViewController: UIViewController {
         return textField
     }()
     
-    private var dueDatePicker: UIDatePicker = {
+    private lazy var dueDatePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         datePicker.translatesAutoresizingMaskIntoConstraints = false
+        datePicker.tag = DATEPICKER_TAG
+        datePicker.addAction(UIAction { [weak self] action in
+            if let picker = action.sender as? UIDatePicker{
+                print("date: \(picker.date.ISO8601Format())")
+                self?.dueDate = .someday(date: picker.date)
+                picker.resignFirstResponder()
+            }
+        }, for: .valueChanged)
+        
         return datePicker
     }()
     
@@ -36,15 +89,24 @@ class AddTaskViewController: UIViewController {
         
         let todayButton = UIButton(type: .custom)
         todayButton.setTitle("오늘", for: .normal)
+        todayButton.tag = TODAY_BUTTON_TAG
         todayButton.configuration = config
+        todayButton.addAction(UIAction { [weak self] _ in self?.dueDate = .today },
+                              for: .touchUpInside)
         
         let tomorrowButton = UIButton(type: .custom)
         tomorrowButton.setTitle("내일", for: .normal)
+        tomorrowButton.tag = TOMORROW_BUTTON_TAG
         tomorrowButton.configuration = config
-        
+        tomorrowButton.addAction(UIAction { [weak self] _ in self?.dueDate = .tomorrow },
+                              for: .touchUpInside)
+
         let noDueButton = UIButton(type: .custom)
         noDueButton.setTitle("미지정", for: .normal)
+        noDueButton.tag = NODUE_BUTTON_TAG
         noDueButton.configuration = config
+        noDueButton.addAction(UIAction { [weak self] _ in self?.dueDate = .none },
+                              for: .touchUpInside)
 
         stackView.addArrangedSubview(todayButton)
         stackView.addArrangedSubview(tomorrowButton)
@@ -76,6 +138,10 @@ class AddTaskViewController: UIViewController {
         view.backgroundColor = .white
         self.title = "Add Task"
         
+        submitButton.addAction(UIAction { [weak self] _ in
+            self?.saveTodo()
+        }, for: .touchUpInside)
+        
         view.addSubview(taskTextField)
         view.addSubview(dueDateStackView)
         view.addSubview(submitButton)
@@ -99,6 +165,37 @@ class AddTaskViewController: UIViewController {
             submitButton.topAnchor.constraint(equalTo: dueDateStackView.bottomAnchor, constant: 20)
             
         ])
+    }
+    
+    override func viewIsAppearing(_ animated: Bool) {
+        super.viewIsAppearing(animated)
+        updateDueButtons()
+    }
+    
+    // MARK: - Methods
+    private func updateDueButtons() {
+        dueDateStackView.subviews.forEach { element in
+            if let button = element as? UIButton {
+                button.isSelected = dueDate.isSelected(tag: element.tag)
+            } else {
+                print("데이트 피커")
+            }
+        }
+    }
+    
+    private func saveTodo() {
+        if let taskText = self.taskTextField.text, !taskText.isEmpty {
+            TodoStore.shared.addTodo(todo: Todo(id: UUID(),
+                                                task: taskText,
+                                                date: dueDate.getDate(),
+                                                isDone: false))
+            print(TodoStore.shared.getList())
+            dismiss(animated: true)
+        } else {
+            let alert = UIAlertController(title: "할 일을 입력하세요", message: nil, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "확인", style: .cancel))
+            present(alert, animated: true)
+        }
     }
  
     @objc func cancleAddTask(_ sender: UIBarButtonItem) {

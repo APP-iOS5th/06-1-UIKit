@@ -14,6 +14,7 @@
 		37209E8F2C00650400B2C589 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37209E8E2C00650400B2C589 /* Assets.xcassets */; };
 		37209E922C00650400B2C589 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 37209E912C00650400B2C589 /* Base */; };
 		37209E9A2C006A6C00B2C589 /* AddTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37209E992C006A6C00B2C589 /* AddTaskViewController.swift */; };
+		37209E9C2C00790700B2C589 /* TodoStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37209E9B2C00790700B2C589 /* TodoStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		37209E912C00650400B2C589 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		37209E932C00650400B2C589 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		37209E992C006A6C00B2C589 /* AddTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskViewController.swift; sourceTree = "<group>"; };
+		37209E9B2C00790700B2C589 /* TodoStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				37209E8E2C00650400B2C589 /* Assets.xcassets */,
 				37209E902C00650400B2C589 /* LaunchScreen.storyboard */,
 				37209E932C00650400B2C589 /* Info.plist */,
+				37209E9B2C00790700B2C589 /* TodoStore.swift */,
 			);
 			path = TodoList;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37209E8A2C00650200B2C589 /* ViewController.swift in Sources */,
+				37209E9C2C00790700B2C589 /* TodoStore.swift in Sources */,
 				37209E9A2C006A6C00B2C589 /* AddTaskViewController.swift in Sources */,
 				37209E862C00650200B2C589 /* AppDelegate.swift in Sources */,
 				37209E882C00650200B2C589 /* SceneDelegate.swift in Sources */,
